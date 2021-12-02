@@ -1,0 +1,185 @@
+
+<app-admin-nav></app-admin-nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>List of Flights</h2>
+    <br>|
+        <button  class="btn btn-success"><a routerLink="/admin">Airlines</a></button> |
+        <button  class="btn btn-success" data-toggle="modal" data-target="#myModal">AddFlight</button>  |
+      </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>FlightId</th>
+          <th>AirlineName</th>
+          <th>AirlineId</th>
+          <th>FlightName</th>
+          <th>FlightFrom</th>
+          <th>FlightTo</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Available Seats</th>
+          <th>update</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of flights;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{flight.flightId}}</td>
+          <td>{{flight.airline.airlineName}}</td>
+          <td>{{flight.airline.airlineId}}</td>
+          <td>{{flight.flightName}}</td>
+          <td>{{flight.from}}</td>
+          <td>{{flight.to}}</td>
+          <td>{{flight.date}}</td>
+          <td>{{flight.price}}</td>
+          <td>{{flight.seats}}</td>
+          <td><button class="btn btn-info"  data-toggle="modal" data-target="#updateModal" (click)="updateFlight(flight,flight.airline.airlineId,flight.flightId);">update</button></td>
+          <td><button class="btn btn-danger" (click)="deleteById(flight.flightId);">delete</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        <h4 class="modal-title">New Flight details</h4>
+        </div>
+        <div class="modal-body">
+          <form #add="ngForm" (ngSubmit)="addFlight(add.value)">
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Airline Id: <small></small> </label>
+              <input  type="number" required [(ngModel)]="airlineId" name="airlineId"
+                 class="form-control phone" maxlength="28" placeholder="New Flight Name" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Flight Name: <small></small> </label>
+              <input  type="text" required [(ngModel)]="flights.flightName" name="flightName"
+                 class="form-control phone" maxlength="28" placeholder="New Flight Name" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Flight From: <small></small> </label>
+              <input  type="text" required [(ngModel)]="flights.from" name="from"
+                  class="form-control phone" maxlength="28" placeholder="From" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Flight To: <small></small> </label>
+              <input  type="text" required [(ngModel)]="flights.to" name="to"
+                  class="form-control phone" maxlength="28" placeholder="To" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Flight Deapature Time: <small></small> </label>
+              <input  type="text" required [(ngModel)]="flights.datetime" name="datetime"
+                  class="form-control phone" maxlength="28" placeholder="Deapature Time" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Flight Deapature Date: <small></small> </label>
+              <input  type="date" required [(ngModel)]="flights.date" name="date"
+                  class="form-control phone" maxlength="28" placeholder="Deapature Date" />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Price for single Seat: <small></small> </label>
+              <input  type="number" required [(ngModel)]="flights.price" name="price"
+                  class="form-control phone" maxlength="28" placeholder="Price " />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> Toatal Seats: <small></small> </label>
+              <input  type="number" required [(ngModel)]="flights.seats" name="seats"
+                  class="form-control phone" maxlength="28" placeholder="enter number of Seats " />
+            </div>
+            <div class="form-group">
+              <label for="Name"><span class="req">* </span> available Seats: <small></small> </label>
+              <input  type="number" required [(ngModel)]="flights.seatsBooked" name="seatsBooked"
+                  class="form-control phone" maxlength="28" placeholder="BLOCKED SEATS FOR VIP'S" />
+            </div>
+
+            <div class="modal-footer">
+          <button type="submit" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+  </div>
+
+  <div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Update Flight</h4>
+          </div>
+          <div class="modal-body">
+            <form #update="ngForm" (ngSubmit)="addFlight(update.value)">
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Flight Name: <small></small> </label>
+                <input  type="text" required [(ngModel)]="flights.flightName" name="flightName"
+                   class="form-control phone" maxlength="28" placeholder="New Flight Name" />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Flight From: <small></small> </label>
+                <input  type="text" required [(ngModel)]="flights.from" name="from"
+                    class="form-control phone" maxlength="28" placeholder="From" />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Flight To: <small></small> </label>
+                <input  type="text" required [(ngModel)]="flights.to" name="to"
+                    class="form-control phone" maxlength="28" placeholder="To" />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Flight Deapature Time: <small></small> </label>
+                <input  type="text" required [(ngModel)]="flights.datetime" name="datetime"
+                    class="form-control phone" maxlength="28" placeholder="Deapature Time" />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Flight Deapature Date: <small></small> </label>
+                <input  type="date" required [(ngModel)]="flights.date" name="date"
+                    class="form-control phone" maxlength="28" placeholder="Deapature Date" />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Price for single Seat: <small></small> </label>
+                <input  type="number" required [(ngModel)]="flights.price" name="price"
+                    class="form-control phone" maxlength="28" placeholder="Price " />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> Toatal Seats: <small></small> </label>
+                <input  type="number" required [(ngModel)]="flights.seats" name="seats"
+                    class="form-control phone" maxlength="28" placeholder="enter number of Seats " />
+              </div>
+              <div class="form-group">
+                <label for="Name"><span class="req">* </span> available Seats: <small></small> </label>
+                <input  type="number" required [(ngModel)]="flights.seatsBooked" name="seatsBooked"
+                    class="form-control phone" maxlength="28" placeholder="BLOCKED SEATS FOR VIP'S" />
+              </div>
+
+              <div class="modal-footer">
+            <button type="submit" class="btn btn-success" >Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+    </div>
+

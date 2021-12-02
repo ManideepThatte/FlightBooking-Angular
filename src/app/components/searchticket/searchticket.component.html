@@ -1,0 +1,161 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <div>
+    <a routerLink="" class="nav-link active"  >Home</a>
+</div>
+    <div>
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a routerLink="/flightsearch" class="nav-link active" >Search Flight</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="" class="nav-link active" >Logout</a>
+        </li>
+
+      </ul>
+
+    </div>
+
+</nav>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Ticket History</h2>
+    <br>|
+    <!--<button  class="btn btn-success" data-toggle="modal" data-target="#myModal">Enter your Mail Id</button>  |-->
+    <button  class="btn btn-success" data-toggle="modal" data-target="#PNRModal">Enter your PNR</button>  |
+  </div>
+</div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--Card-->
+<div class="card shadow mb-5 bg-white rounded">
+    <!--Card-Body-->
+    <div class="card-body">
+        <!--Card-Title-->
+        <p class="card-title text-center shadow mb-5 rounded">Ticke Details By EmailId </p>
+        <div class="icons text-center">
+            <i class="fa fa-plane fa-2x" aria-hidden="true"></i>
+        </div>
+        <hr>
+        <!--First Row-->
+        <form [formGroup] = "ticketform">
+        <div class="row">
+            <div class="col-sm-6">
+              <input type="test" class="form-control" formControlName = "email" placeholder="Enter Your Mail ID" required>
+            </div>
+         </div>
+         <br>
+    </form>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success" [disabled]= "!ticketform.valid"data-dismiss="modal" (click)="getTicketByEmail();">Submit</button>
+      </div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="PNRModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--Card-->
+<div class="card shadow mb-5 bg-white rounded">
+    <!--Card-Body-->
+    <div class="card-body">
+        <!--Card-Title-->
+        <p class="card-title text-center shadow mb-5 rounded">Ticke Details By PNR</p>
+        <div class="icons text-center">
+            <i class="fa fa-plane fa-2x" aria-hidden="true"></i>
+        </div>
+        <hr>
+        <!--First Row-->
+        <form [formGroup] = "pnrform">
+        <div class="row">
+            <div class="col-sm-6">
+              <input type="test" class="form-control"  formControlName = "pnr" placeholder="Enter Your PNR " required>
+            </div>
+         </div>
+         <br>
+    </form>
+
+    <div class="modal-footer">
+     <button type="submit" class="btn btn-success" data-dismiss="modal" [disabled]= "!pnrform.valid" (click)="getTicketByPnr();">Submit</button>
+      </div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="panel-body" id="content" >
+  <caption>Ticket Details</caption>
+  <table class="table table-striped"  *ngIf="ticketHistory"  id="download">
+      <tbody>
+        <tr>
+          <th> PNR </th>
+          <td>{{ticketHistory.pnr}}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>{{ticketHistory.status}}</td>
+        </tr>
+        <tr>
+          <th> User id :</th>
+          <td>{{ticketHistory.userId}}</td>
+        </tr>
+        <tr>
+          <th> Flight Name:</th>
+          <td>{{ticketHistory.flightName}}</td>
+        </tr>
+        <tr>
+          <th>Time</th>
+          <td>{{ticketHistory.flightTime}}</td>
+        </tr>
+        <tr>
+          <th> Date</th>
+          <td>{{ticketHistory.flightdate}}</td>
+        </tr>
+        <tr>
+          <th>Total Fair</th>
+          <td>{{ticketHistory.price}}</td>
+        </tr>
+        <tr>
+          <th>Discount</th>
+          <td>{{500}}</td>
+        </tr>
+        <!-- <tr>
+          <th>Passengers :</th>
+          <th>Passenger name</th>
+          <th>Age</th>
+          <th>Gender</th>
+       </tr>
+            <tr *ngFor="let ticketpassenger of ticketPassengers ;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{ticketpassenger.name}}</td>
+          <td>{{ticketpassenger.age}}</td>
+          <td>{{ticketpassenger.gender}}</td>
+        </tr> -->
+
+        <button class="btn btn-success" (click)="downloadPDF();"> Download Ticket</button>
+      </tbody>
+  </table>
+</div>

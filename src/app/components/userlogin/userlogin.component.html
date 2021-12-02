@@ -1,0 +1,20 @@
+<app-home-nav></app-home-nav>
+<div class="container">
+
+    <img src="https://www.zastavki.com/pictures/originals/2014/Aviation____Boeing_747_in_flight_060285_.jpg" alt="Snow" style="width:100%;" >
+
+    <div class="centered">
+ <form [formGroup]="loginForm" (submit)="submit()">
+    <h1 class="h3 mb-3 fw-normal">User LogIn</h1>
+
+
+    <input formControlName ="username" type="email" class="form-control"  placeholder="UserName" required>
+
+      <input formControlName ="password" type="password" class="form-control"  placeholder="Password" required>
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    <button class="w-100 btn btn-lg btn-primary" [disabled]= "!loginForm.valid" type="submit">Sign in</button>
+      </form>
+  </div>
+</div>

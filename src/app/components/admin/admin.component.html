@@ -1,0 +1,118 @@
+<app-admin-nav></app-admin-nav>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>List of Airlines</h2>
+    <br>
+    <button  class="btn btn-success"><a routerLink="/flights">Flights</a></button> |
+    <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal">Add Airline</button>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>AirlineId</th>
+          <th>AirlineName</th>
+          <th>Airlinestatus</th>
+          <th>AirlineEmail</th>
+          <th>delete</th>
+          <th>update</th>
+          <th>block</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let airline of airline;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{airline.airlineId}}</td>
+          <td>{{airline.airlineName}}</td>
+          <td>{{airline.status}}</td>
+          <td>{{airline.airlineEmail}}</td>
+          <td><button  class="btn btn-danger" (click)="delete(airline.airlineId);">Delete</button> </td>
+          <td> <button  class="btn btn-info" data-toggle="modal" data-target="#update" (click)="updateAirline(update.value, airline.airlineId)">update</button></td>
+          <td><button  class="btn btn-danger" (click)="block(airline.airlineId);">block</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+      <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title">Add New Airline</h4>
+              </div>
+              <div class="modal-body">
+                <form #add="ngForm" (ngSubmit)="registerNow(add.value)">
+                  <div class="form-group">
+                    <label for="Name"><span class="req">* </span> AirlineName: <small></small> </label>
+                    <input  type="text" required [(ngModel)]="airline.airlineName" name="airlineName" id="airlineName"
+                      class="form-control phone" maxlength="28" placeholder="Enter Airline Name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Name"><span class="req">* </span> AirlineEmail: <small></small> </label>
+                    <input  type="text" required [(ngModel)]="airline.airlineEmail" name="airlineEmail" id="airlineEmail"
+                        class="form-control phone" maxlength="28" placeholder="Enter Airline Email" />
+                  </div>
+
+                  <div class="modal-footer">
+                <button type="submit" class="btn btn-success" >Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </form>
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="update" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title">Update Airline</h4>
+              </div>
+              <div class="modal-body">
+                <form #update="ngForm" >
+                  <div class="form-group">
+                    <label for="Name"><span class="req">* </span> AirlineName: </label>
+                    <input  type="text" required [(ngModel)]="airline.airlineName" name="airlineName" id="airlineName"
+                       class="form-control phone" maxlength="28" placeholder="Enter Airline Name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Name"><span class="req">* </span> AirlineEmail: <small></small> </label>
+                    <input  type="text" required [(ngModel)]="airline.airlineEmail" name="airlineEmail" id="airlineEmail"
+                        class="form-control phone" maxlength="28" placeholder="Enter Airline Email" />
+                  </div>
+
+                  <div class="modal-footer">
+                <button type="submit" class="btn btn-success" >Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </form>
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+        </div>
+
+  </div>
+
+
+
+
+
+
